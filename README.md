@@ -7,7 +7,7 @@
 
 [![Total Downloads](https://img.shields.io/packagist/dt/secmohammed/artify.svg?style=flat-square)](https://packagist.org/packages/secmohammed/artify)
 
-<p align="center"> Made with ❤️ by  SecTheater Foundation:  http://www.sectheater.org</p>
+<p align="center"> Made with ❤️ by  SecTheater Foundation</p>
 
 > Artify CheatSheet will be availble soon 
 
