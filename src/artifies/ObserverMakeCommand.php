@@ -86,7 +86,7 @@ class ObserverMakeCommand extends Command
         File::copy(artify_path('artifies/stubs/DummyObserver.stub'), app_path('/Observers/'.$name.'.php'));
         File::put(artify_path('artifies/stubs/DummyObserver.stub'), $defaultObserverContent);
 
-        $this->info('Yateey! observer created successfully');
+        $this->info('Yeey! observer created successfully');
     }
 
     public function registerProvider()
