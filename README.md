@@ -14,7 +14,7 @@
 
 <hr>
 
-<p>Laravel is a great framework and it provides us to create our custom artisan commands, so why not to have a couple of commands that makes your life easier while develping your application. </p>
+<p>Laravel is a great framework and it provides us the ability to create our custom artisan commands, so why not to have a couple of commands that makes your life easier while develping your application. </p>
 <h1>If you have any inspiration about a new command , or you do something routinely and you want a command for that , Please do not hesitate at all.</h1>
 <p>Artify cares about the commands that you should have within your application, for now, it ships with commands that will help you to create files that laravel don't supply a command for them till now such as Repositories,Observers,Responsable Interface,facades and so on..</p>
 
@@ -23,7 +23,7 @@
 
 ### 1. Require the Package
 
-After creating your new Laravel application you can include the Jarvis package with the following command: 
+After creating your new Laravel application you can include the Artify package with the following command: 
 
 ```bash
 composer require secmohammed/artify:dev-master
@@ -47,11 +47,6 @@ DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
 
-You will also want to update your website URL inside of the `APP_URL` variable inside the .env file:
-
-```
-APP_URL=http://localhost:8000
-```
 
 ### 3. Getting Your Environment Ready.
 
@@ -87,20 +82,24 @@ php artisan artify:install
 
 ![Installation Preview](http://sectheater.org/assets/images/doc/artify.png)
 
-Now everything is set, Let"s dive into the Commands.
+Now everything is set, Let's dive into the Commands.
 ### 4. Commands that artify covers.
 <hr>
 
 #### 4.1 Create an Observer
-Observer is typically observing for a particular eloquent event. On happening this event, Observer is fired, You can read about it at the documentation.
+Observer is typically observing for a particular eloquent event. On happening this event, Observer is fired, You can read about it at the [documentation](https://laravel.com/docs/5.6/eloquent).
 
 
 ```bash
   // ? means optional.
- // php artisan artify:observer <name of Observer> <model attached?> <methods to ignore while creating observer?>
- // Example 1.0
- php artisan artify:observer Post --class="Post" created updated
-```
+ // php artisan artify:observer <name of Observer> <-m?> <-p?>
+ // creates a model for this observer in case the model doesn't exist
+ // registering on the provider is always set to true, if you don't want to register the observer just type "-p"
+ 
+ php artisan artify:observer PostObserver -m 
+ 
+ ```
+
 The upon command generates an observer file within your App/Observers with name of PostObserver
 The methods there now have Post Model as parameter passed,
 The ignored methods while creating the observer ( which won't be within this file) are created and updated.
@@ -110,8 +109,7 @@ The ignored methods while creating the observer ( which won't be within this fil
 #### 4.2 Create A Responsable Interface 
 
 
-Responsable Interface is a Laravel 5.5 feature that you should use to make your controller slim, you can see a tutorial about it.
-https://www.youtube.com/watch?v=yKNK6MZdSrY
+Responsable Interface is a Laravel 5.5 feature that you should use to make your controller slim, you can see a [tutorial](https://www.youtube.com/watch?v=yKNK6MZdSrY) about it.
 
 ```bash
 	php artisan artify:response <name>
@@ -126,7 +124,7 @@ The command upon is going to create you a new file with the name you attached un
 
 
 <b>This command is in charge of converting the available roles within your database into policy and gates</b>
-<p>It"s preferable to follow the convention of naming the roles as mentioned in the Roles seeder</p>
+<p>It's preferable to follow the convention of naming the roles as mentioned in the Roles Table Seeder</p>
 <p>Artify also supplies you with the migration for roles, if you are going to change the permissions column, don't forget to update that within the config file</p>
 <p>Permissions column should be an array, if they are jsonb in your database, use the accessors, or observers, or use casts property to convert permissions to an array</p>
 
@@ -152,7 +150,7 @@ protected $casts = ["permissions" => "array"];
 ```
 
 
-This method is required to check whether the user has a specific role to access somewhere or not, It"s used within the gates.
+This method is required to check whether the user has a specific role to access somewhere or not, It's used within the gates.
 Feel free to change the gates"s logic to suit your needs.
 
 ```
@@ -178,7 +176,7 @@ This command is just there to save you a couple of minutes whenever you assign a
 ```bash
  php artisan artify:assign <username> <slug>
  //  Example : 
- php artisan artify:assign Alex Admin
+ php artisan artify:assign Alex admin
 ```
 <hr>
 
@@ -186,7 +184,7 @@ This command is just there to save you a couple of minutes whenever you assign a
 #### 4.5 Create A Repository
 
 
-Repository patten is absolutely a powerful pattern that you should use in order to separate logic from your database layer ( model ).
+Repository patten is absolutely a powerful pattern that you should use in order to separate logic from your database layer ( model ) and keep your model cleaner.
 
 ```bash
  php artisan artify:repository <name of repo> (-m?) (-f?)
