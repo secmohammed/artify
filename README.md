@@ -17,6 +17,8 @@
 <p>Laravel is a great framework and it provides us to create our custom artisan commands, so why not to have a couple of commands that makes your life easier while develping your application. </p>
 <b>If you have any inspiration about a new command , or you do something routinely and you want a command for that , Please do not hesitate at all.</b>
 <p>Artify cares about the commands that you should have within your application, for now, it ships with commands that will help you to create files that laravel don't supply a command for them till now such as Repositories,Observers,Responsable Interface,facades and so on..</p>
+
+<h1>If you have any inspiration to create a new command, or something you routinely do , you can tell us about that, and we will make it happen</h1>
 ## Installation Steps
 
 ### 1. Require the Package
