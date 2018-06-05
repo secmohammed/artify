@@ -128,7 +128,7 @@ class RegisterAuthorizationCommand extends Command
     {
         foreach ($permissions as $permission) {
             $access = $permission.'-'.lcfirst($model);
-            $content = str_replace_first("Gate::define(\'dummy-access\',\'\App\Policies\DummyPolicy@DummyAction\');\n", "Gate::define('$access','\App\Policies\{$model}Policy@$permission');\n", $content);
+            $content = str_replace_first("Gate::define(\'dummy-access\',\'\App\Policies\DummyPolicy@DummyAction\');\n", "Gate::define('$access','\App\Policies\\{$model}Policy@$permission');\n", $content);
         }
 
         return $content;
