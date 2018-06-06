@@ -61,7 +61,7 @@ class InstallCommand extends Command
         if ($this->argument('duration') && $this->option('cache')) {
             config(['artify.cache.enabled' => true, 'artify.cache.duration' => (int) $this->argument('duration')]);
         } else {
-            config(['artify.cache.enabled' => false]);
+            config(['artify.cache.enabled' => false,'artify.cache.duration' => 10]);
         }
 
         if (!array_key_exists('user', config('artify.models'))) {
