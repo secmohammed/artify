@@ -66,17 +66,20 @@ class GenerateCrudCommand extends Command
 
         if ($this->option('repository')) {
             $this->call('artify:repository', ['name' => "{$model}Repository"]);
-            $runtimeControllerContent = str_replace(['$dummy->delete();','$dummy->update(request()->all());','Dummy::get()','Dummy::create(request()->all());'],['\DummyRepository::delete($dummy->id);','\DummyRepository::update($dummy->id, request()->all());','\DummyRepository::get()','\DummyRepository::create(request()->all());'],$defaultControllerContent);
+            $runtimeControllerContent = str_replace(['$dummy->delete();','$dummy->update(request()->all());','Dummy::latest()','Dummy::create(request()->all());'],['\DummyRepository::delete($dummy->id);','\DummyRepository::update($dummy->id, request()->all());','\DummyRepository::latest()','\DummyRepository::create(request()->all());'],$defaultControllerContent);
         }
 
         if (!$this->filesystem->exists(app_path('/Http/Controllers/'.$model.'Controller.php'))) {
+            dd(!config('artify.cache.enabled'),$runtimeControllerContent);
             if (!config('artify.cache.enabled')) {
                     $layerName = strpos($runtimeControllerContent ?? $defaultControllerContent, '\DummyRepository') ? '\DummyRepository' : 'Dummy';
-                    if($this->option('repository'))
-                        $assignedLayer = '$dummies = \\' . $model .'Repostiroy::get()->latest(10);';
+                    if($this->option('repository')){
+                        $assignedLayer = '$dummies = \\' . $model .'Repostiroy::latest()->get();';
+
+                    }
                     $runtimeControllerContent = str_replace(["cache()->forget('dummies');\n", "cache('dummies')",'cache()->remember(\'dummies\', config(\'artify.cache.duration\'), function () {
-            $dummies = ' . $layerName . '::get()->latest(10);
-        });'], ['', '$dummies', $assignedLayer ?? '$dummies = Dummy::get()->latest(10);'], $runtimeControllerContent ?? $defaultControllerContent);
+            $dummies = ' . $layerName . '::latest()->get();
+        });'], ['', '$dummies', $assignedLayer ?? '$dummies = Dummy::latest()->get();'], $runtimeControllerContent ?? $defaultControllerContent);
             }
 
             $runtimeControllerContent = str_replace(
