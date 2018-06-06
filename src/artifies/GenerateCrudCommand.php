@@ -70,7 +70,6 @@ class GenerateCrudCommand extends Command
         }
 
         if (!$this->filesystem->exists(app_path('/Http/Controllers/'.$model.'Controller.php'))) {
-            dd(!config('artify.cache.enabled'),$runtimeControllerContent);
             if (!config('artify.cache.enabled')) {
                     $layerName = strpos($runtimeControllerContent ?? $defaultControllerContent, '\DummyRepository') ? '\DummyRepository' : 'Dummy';
                     if($this->option('repository')){
