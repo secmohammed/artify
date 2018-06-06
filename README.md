@@ -26,7 +26,7 @@
 After creating your new Laravel application you can include the Artify package with the following command: 
 
 ```bash
-composer require secmohammed/artify:dev-master
+composer require sectheater/artify:dev-master
 ```
 If your laravel version is 5.5+, you don't need to register ArtifyServiceProvider as It"s automatically discovered, unless that you got to register it manually in your config/app.php
 
