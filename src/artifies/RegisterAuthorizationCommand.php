@@ -121,7 +121,7 @@ class RegisterAuthorizationCommand extends Command
 
     protected function replaceArraySegements($model, $content)
     {
-        return  str_replace_first("App\DummyModel::class => App\Policies\DummyPolicy::class", config('artify.models.namespace') . ucfirst($model)."::class => App\Policies\\{$model}Policy::class,\n", $content);
+        return  str_replace_first("App\DummyModel::class => App\Policies\DummyPolicy::class", config('artify.models.namespace') . ucfirst($model)."::class => \App\Policies\\{$model}Policy::class,\n", $content);
     }
 
     protected function replaceGates($model, $content, $permissions)
