@@ -2,7 +2,6 @@
 
 namespace Artify\Artify\Traits\Roles;
 
-use Artify\Artify\Exceptions\InsufficientPermissionsException;
 
 trait Roles
 {
@@ -109,7 +108,7 @@ trait Roles
 
         foreach ($permission as $key) {
             if (!isset($permissions[$key])) {
-                throw new InsufficientPermissionsException("$key Permission Does not exist for user id of ".$this->id, 500);
+                throw new \Artify\Artify\Exceptions\InsufficientPermissionException("$key Permission Does not exist for user id of ".$this->id, 500);
             }
             if (array_key_exists($key, $permissions)) {
                 unset($permissions[$key]);
