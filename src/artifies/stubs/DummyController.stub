@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Dummy;
 use Illuminate\Http\Request;
 use App\Http\Requests\{DummyStoreRequestForm, DummyUpdateRequestForm};
 
@@ -15,7 +15,7 @@ class DummyController extends Controller
     public function index()
     {
         cache()->remember('dummies', config('artify.cache.duration'), function () {
-            $dummies = \App\Dummy::get()->latest(10);
+            $dummies = Dummy::get()->latest(10);
         });
 
         return view('dummies.index', ['dummies' => cache('dummies')]);
@@ -39,7 +39,7 @@ class DummyController extends Controller
      */
     public function store(DummyStoreRequestForm $request)
     {
-        \App\Dummy::create(request()->all());
+        Dummy::create(request()->all());
 
         cache()->forget('dummies');
 
