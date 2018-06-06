@@ -3,9 +3,9 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/82e35aa0-2a67-42dd-9aae-4eeb0ec84fdb/big.png)](https://insight.sensiolabs.com/projects/82e35aa0-2a67-42dd-9aae-4eeb0ec84fdb)
 
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/secmohammed/artify.svg?style=flat-square)](https://packagist.org/packages/secmohammed/artify)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/sectheater/artify.svg?style=flat-square)](https://packagist.org/packages/secmohammed/artify)
 
-[![Total Downloads](https://img.shields.io/packagist/dt/secmohammed/artify.svg?style=flat-square)](https://packagist.org/packages/secmohammed/artify)
+[![Total Downloads](https://img.shields.io/packagist/dt/sectheater/artify.svg?style=flat-square)](https://packagist.org/packages/secmohammed/artify)
 
 <p align="center"> Made with ❤️ by  SecTheater Foundation</p>
 
