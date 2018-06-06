@@ -62,16 +62,20 @@ class GenerateCrudCommand extends Command
             $this->call('make:request', ['name' => "{$model}UpdateRequestForm"]);
         }
 
+        $defaultControllerContent = $this->filesystem->get(artify_path('artifies/stubs/DummyController.stub'));
+
         if ($this->option('repository')) {
             $this->call('artify:repository', ['name' => "{$model}Repository"]);
+            $runtimeControllerContent = str_replace(['$dummy->delete();','$dummy->update(request()->all());','Dummy::get()','Dummy::create(request()->all());'],['DummyRepository::delete($dummy->id);','DummyRepository::update($dummy->id, request()->all());','DummyRepository::get()','DummyRepository::create(request()->all());'],$defaultControllerContent);
         }
 
         if (!$this->filesystem->exists(app_path('/Http/Controllers/'.$model.'Controller.php'))) {
-            $defaultControllerContent = $this->filesystem->get(artify_path('artifies/stubs/DummyController.stub'));
-            if (config('artify.cache.enabled')) {
-                $runtimeControllerContent = str_replace(["cache()->forget('dummies');\n", "cache('dummies')", 'cache()->remember(\'dummies\', 10, function () {
-            $dummies = \App\Dummy::get()->latest(10);
-        });'], ['', '$dummies', '$dummies = \App\Dummy::get()->latest(10);'], $defaultControllerContent);
+            if (!config('artify.cache.enabled')) {
+                    if($this->option('repository'))
+                        $somethingHere = '$dummies = ' . $model .'Repostiroy::get()->latest(10);';
+                    $runtimeControllerContent = str_replace(["cache()->forget('dummies');\n", "cache('dummies')",'cache()->remember(\'dummies\', config(\'artify.cache.duration\'), function () {
+            $dummies = Dummy::get()->latest(10);
+        });'], ['', '$dummies', $somethingHere ?? '$dummies = Dummy::get()->latest(10);'], $runtimeControllerContent ?? $defaultControllerContent);
             }
 
             $runtimeControllerContent = str_replace(
