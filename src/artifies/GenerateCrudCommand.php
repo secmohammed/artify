@@ -68,7 +68,7 @@ class GenerateCrudCommand extends Command
 
         if (!$this->filesystem->exists(app_path('/Http/Controllers/'.$model.'Controller.php'))) {
             $defaultControllerContent = $this->filesystem->get(artify_path('artifies/stubs/DummyController.stub'));
-            if (!config('artify.cache.enabled')) {
+            if (config('artify.cache.enabled')) {
                 $runtimeControllerContent = str_replace(["cache()->forget('dummies');\n", "cache('dummies')", 'cache()->remember(\'dummies\', 10, function () {
             $dummies = \App\Dummy::get()->latest(10);
         });'], ['', '$dummies', '$dummies = \App\Dummy::get()->latest(10);'], $defaultControllerContent);
