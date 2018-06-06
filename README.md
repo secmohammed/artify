@@ -142,7 +142,7 @@ protected $casts = ["permissions" => "array"];
 
 
 ```
- use Artify\\Artify\\Traits\\Roles\\Roles;
+ use Artify\Artify\Traits\Roles\Roles;
 
  Class User Extends Model {
    use Roles;    
