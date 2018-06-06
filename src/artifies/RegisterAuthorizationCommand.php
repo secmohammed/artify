@@ -143,14 +143,14 @@ class RegisterAuthorizationCommand extends Command
             $content = str_replace('use NamespacedDummyModel;', 'use '.config('artify.models.namespace').ucfirst($model).';', $originalContent);
         }
         foreach ($permissions as $permission) {
-            if(in_array('approve',$permissions) || in_array('upgrade',$permissions) || in_array('downgrade',$permissions)){
-                if(str_contains($model, 'User')){
-                    $content = str_replace('use HandlesAuthorization;', "use HandlesAuthorization;\n\tpublic function $permission(User \$user)\n\t{\n\t\treturn \$user->hasRole('$permission-".lcfirst($model)."');\n\t}", $content);
-                }else {
-                    $content = str_replace('use HandlesAuthorization;', "use HandlesAuthorization;\n\tpublic function approve(User \$user,".ucfirst($model).' $'.lcfirst($model).")\n\t{\n\t\treturn \$user->hasRole('approve-".lcfirst($model)."') || \$user->id == \$".lcfirst($model)."->user_id;\n\t}", $content);
+            if(in_array('upgrade',$permissions) || in_array('downgrade',$permissions)){
+                $content = str_replace('use HandlesAuthorization;', "use HandlesAuthorization;\n\tpublic function $permission(User \$user)\n\t{\n\t\treturn \$user->hasRole('$permission-".lcfirst($model)."');\n\t}", $content);
 
-                }
             }
+        }
+        if(in_array('approve',$permissions)){
+            $content = str_replace('use HandlesAuthorization;', "use HandlesAuthorization;\n\tpublic function approve(User \$user,".ucfirst($model).' $'.lcfirst($model).")\n\t{\n\t\treturn \$user->hasRole('approve-".lcfirst($model)."') || \$user->id == \$".lcfirst($model)."->user_id;\n\t}", $content);
+
         }
         $content = str_replace([
             'DummyClass',
