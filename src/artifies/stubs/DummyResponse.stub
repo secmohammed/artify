@@ -6,7 +6,7 @@ use Illuminate\Contracts\Support\Responsable;
 
 class DummyResponse implements Responsable
 {
-    public function toResponse(Request $request)
+    public function toResponse($request)
     {
         //
     }
