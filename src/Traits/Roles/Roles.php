@@ -2,7 +2,7 @@
 
 namespace Artify\Artify\Traits\Roles;
 
-use SecTheater\Jarvis\Exceptions\InsufficientPermissionsException;
+use Artify\Artify\Exceptions\InsufficientPermissionsException;
 
 trait Roles
 {
