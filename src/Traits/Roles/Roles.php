@@ -2,6 +2,7 @@
 
 namespace Artify\Artify\Traits\Roles;
 
+use SecTheater\Jarvis\Exceptions\InsufficientPermissionsException;
 
 trait Roles
 {
@@ -41,8 +42,8 @@ trait Roles
 
     public function hasRole($role)
     {
-        $roles = $this->roles()->first()->{config('artify.permissions_column')};
-        $secondary_roles = $this->toArray()[config('artify.permissions_column')] ?? [];
+        $roles = $this->roles()->first()->permissions;
+        $secondary_roles = $this->toArray()['permissions'] ?? [];
         if (array_key_exists($role, $roles) && $roles[$role] === true) {
             return true;
         }
@@ -70,10 +71,15 @@ trait Roles
             foreach ($permission as $key => $val) {
                 if (!array_key_exists($key, $permissions)) {
                     $permissions = array_merge($permissions, [$key => $val]);
+                } else {
+                    throw new InsufficientPermissionsException("$key exists");
                 }
             }
+            if (count($permissions)) {
+                return $this->setPermissions($permissions);
+            }
 
-            return $this->setPermissions($permissions);
+            return false;
         } elseif (is_string($permission)) {
             if (!array_key_exists($permission, $permissions)) {
                 $permissions = array_merge($permissions, [$permission => $value]);
@@ -108,7 +114,7 @@ trait Roles
 
         foreach ($permission as $key) {
             if (!isset($permissions[$key])) {
-                throw new \Artify\Artify\Exceptions\InsufficientPermissionException("$key Permission Does not exist for user id of ".$this->id, 500);
+                throw new InsufficientPermissionsException("$key Permission Does not exist for ".$this->username, 404);
             }
             if (array_key_exists($key, $permissions)) {
                 unset($permissions[$key]);
@@ -123,7 +129,7 @@ trait Roles
 
     public function setPermissions($permissions)
     {
-        return $this->update([config('artify.permissions_column') => $permissions]);
+        return $this->update(['permissions' => $permissions]);
     }
 
     public function getPermissions()
