@@ -322,3 +322,4 @@ Let"s dive into the Methods there.
    $user->removePermission("create-post"); // returns boolean
    $user->removePermission("create-post","delete-post","whatever-role",...); // returns boolean
  ```
+<p> For Further Resources, Here is an article on [medium] : https://medium.com/@secmuhammed/the-missing-laravel-commands-have-arrived-e0db7092cf07 </p> 
