@@ -26,6 +26,7 @@ class RegisterAuthorizationCommand extends Command
     protected $views = [
         'artifies/stubs/AuthyServiceProvider.stub' => 'Providers/AuthyServiceProvider.php',
     ];
+    protected $crudPermissions = ['create','view','update','delete'];
 
     /**
      * Create a new command instance.
@@ -143,7 +144,7 @@ class RegisterAuthorizationCommand extends Command
             $content = str_replace('use NamespacedDummyModel;', 'use '.config('artify.models.namespace').ucfirst($model).';', $originalContent);
         }
         foreach ($permissions as $permission) {
-            if(in_array('upgrade',$permissions) || in_array('downgrade',$permissions)){
+            if(!in_array($permission,$this->crudPermissions)){
                 $content = str_replace('use HandlesAuthorization;', "use HandlesAuthorization;\n\tpublic function $permission(User \$user)\n\t{\n\t\treturn \$user->hasRole('$permission-".lcfirst($model)."');\n\t}", $content);
 
             }
