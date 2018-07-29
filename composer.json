@@ -1,5 +1,5 @@
 {
-    "name": "sectheater/artify",
+    "name": "sectheater-artify",
     "description": "The Missing Laravel Artisan Commands",
     "keywords" : ["Laravel Commands","Artify","Artifier"],
     "type": "library",
@@ -11,7 +11,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "larapack/hooks": "~1.0"
+     },
     "autoload": {
          "psr-4": {
             "Artify\\Artify\\" : "src/"
